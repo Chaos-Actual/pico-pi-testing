@@ -6,6 +6,7 @@ add_library(myinterface INTERFACE)
 target_sources(myinterface INTERFACE
         ${CMAKE_CURRENT_LIST_DIR}/test.c
         ${CMAKE_CURRENT_LIST_DIR}/mine.c
+        ${CMAKE_CURRENT_LIST_DIR}/sun.c
         )
 
 target_compile_definitions(myinterface INTERFACE

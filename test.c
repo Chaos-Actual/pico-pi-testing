@@ -7,6 +7,8 @@
 #include "pico/stdlib.h"
 #include "mine.h"
 #include "lcd.h"
+#include "sun.h"
+#include <time.h>
 
 int main() {
 #ifndef PICO_DEFAULT_LED_PIN
@@ -18,17 +20,29 @@ int main() {
     gpio_set_dir(LED_PIN, GPIO_OUT);
     gpio_put(LED_PIN, 1);
     sleep_ms(11950);
-     printf("Here1");
-
+    printf("Here1");
+    time_t tm = time(NULL);
     printf("Here2");
+    unsigned int sunrise;
+    unsigned int sunset;
+    getRiseSet(tm, &sunrise, &sunset,Sun); 
+
+    printf("/n sunrise %s",ctime(sunrise));
+
+    printf("Here5\n");
+
+
+    
+
+    
     i2c_init(i2c_default,100*1000);
-    printf("Here3");
+    
     gpio_set_function(PICO_DEFAULT_I2C_SDA_PIN, GPIO_FUNC_I2C);
     gpio_set_function(PICO_DEFAULT_I2C_SCL_PIN, GPIO_FUNC_I2C);
-    printf("Here4");
+
     gpio_pull_up(PICO_DEFAULT_I2C_SDA_PIN);
     gpio_pull_up(PICO_DEFAULT_I2C_SCL_PIN);
-    printf("Here5\n");
+    
     //  Make the I2C pins available to picotool
    // bi_decl(bi_2pins_with_func(PICO_DEFAULT_I2C_SDA_PIN, PICO_DEFAULT_I2C_SCL_PIN,GPIO_FUNC_I2C));
 
@@ -39,7 +53,7 @@ int main() {
 
     while (true) {
         mytest();
-
+        printf("\n %s",time);
         printf("hello this is the const %d \n",MAX_CHARS);
         gpio_put(LED_PIN, 1);
         sleep_ms(250);
